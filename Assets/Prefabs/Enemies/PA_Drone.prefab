@@ -430,8 +430,8 @@ GameObject:
   - component: {fileID: 5241325224686089023}
   - component: {fileID: 6896335820200132598}
   - component: {fileID: 5564741153742137491}
-  - component: {fileID: 6277823771957563762}
   - component: {fileID: 3156250543527372922}
+  - component: {fileID: 7333599267875601494}
   m_Layer: 0
   m_Name: PA_Drone
   m_TagString: Untagged
@@ -448,12 +448,12 @@ Transform:
   m_GameObject: {fileID: 8503359814791431330}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6807863970556724270}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6896335820200132598
 MonoBehaviour:
@@ -470,7 +470,7 @@ MonoBehaviour:
   animator: {fileID: 5564741153742137491}
   rb: {fileID: 3156250543527372922}
   explosion: {fileID: 2607097503489042374, guid: 9420cb2567af6394380f4ca59dd8bc02, type: 3}
-  health: 15
+  health: 50
   bounceSpeed: 10
   bounceHeight: 1.5
 --- !u!95 &5564741153742137491
@@ -494,27 +494,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!135 &6277823771957563762
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8503359814791431330}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3156250543527372922
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -542,3 +521,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &7333599267875601494
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8503359814791431330}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7899702, y: 0.21992493, z: 0.8006758}
+  m_Center: {x: 0.0009825707, y: 0.008811331, z: -0.0088504795}

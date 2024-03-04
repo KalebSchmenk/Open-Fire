@@ -1,15 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroneController : MonoBehaviour
+public class DroneController : MonoBehaviour, IDamageable
 {
     public Animator animator;
     public Rigidbody rb;
 
     public GameObject explosion;
-    public float health = 15f;
-    private bool isDead = false;
+    public float health = 75f;
+    [NonSerialized] public bool isDead = false;
 
 
     // Movement Vars
@@ -45,6 +46,11 @@ public class DroneController : MonoBehaviour
             isDead = true;
             animator.SetTrigger("Die");
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
     }
 
     #region Bounce

@@ -13,11 +13,22 @@ public class ChangeCinemachineLookAt : MonoBehaviour
 
     public Transform newLook;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnCollisionEnter(Collision collision)
     {
-        StartCoroutine(Switchin());
+        GameObject obj = collision.gameObject;
+
+        if (!obj)
+        {
+            Debug.LogWarning("Null obj");
+            return;
+        }
+
+        if (obj.CompareTag("Cart"))
+        {
+            StartCoroutine(Switchin());
+        }
     }
+
 
     IEnumerator Switchin()
     {
