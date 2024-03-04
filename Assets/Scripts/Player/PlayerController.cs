@@ -7,8 +7,15 @@ public class PlayerController : MonoBehaviour, IDamageable
     public int health = 50;
     public float bulletFireCooldown = 0.25f;
     public GameObject bullet;
+    public Texture2D cursorTexture;
 
     private bool inCooldown = false;
+
+    private void Start()
+    {
+        Vector2 hotSpot = new Vector2(cursorTexture.width / 2f, cursorTexture.height / 2f);
+        Cursor.SetCursor(cursorTexture, hotSpot, CursorMode.Auto);
+    }
 
     private void Update()
     {

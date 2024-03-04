@@ -45,6 +45,8 @@ public class DroneController : MonoBehaviour, IDamageable
             Destroy(Instantiate(explosion, this.transform.position, Quaternion.identity), 10f); // Create explosion and destroy it in given time
             isDead = true;
             animator.SetTrigger("Die");
+
+            GameManager.EnemyKilled?.Invoke();
         }
     }
 
