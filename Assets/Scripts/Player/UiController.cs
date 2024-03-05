@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UiController : MonoBehaviour
 {
+    public GameObject youWin;
     public GameObject gameOver;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI scoreText;
@@ -42,5 +43,11 @@ public class UiController : MonoBehaviour
         healthText.text = "Health: " + 0;
 
         gameOver.SetActive(true);
+    }
+
+    public void YouWin()
+    {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        youWin.SetActive(true);
     }
 }

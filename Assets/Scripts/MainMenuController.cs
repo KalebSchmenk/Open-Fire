@@ -14,6 +14,8 @@ public class MainMenuController : MonoBehaviour
     void Start()
     {
         InvokeRepeating("SpawnFlyingShip", 0.25f, 5f);
+        AudioListener.volume = 0.5f;
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     public void PlayGame()

@@ -54,6 +54,7 @@ public class DroneController : MonoBehaviour, IDamageable
     {
         if (health <= 0)
         {
+            this.transform.parent = null;
             rb.useGravity = true;
             Destroy(Instantiate(explosion, this.transform.position, Quaternion.identity), 10f); // Create explosion and destroy it in given time
             isDead = true;

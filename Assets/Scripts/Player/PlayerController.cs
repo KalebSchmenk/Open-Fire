@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         Vector2 hotSpot = new Vector2(cursorTexture.width / 2f, cursorTexture.height / 2f);
         Cursor.SetCursor(cursorTexture, hotSpot, CursorMode.Auto);
+        AudioListener.volume = 0.5f;
     }
 
     private void Update()
@@ -23,6 +25,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (Input.GetKey(KeyCode.Mouse0))
         {
             FireGun();
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
         }
 
         CheckHealth();
@@ -36,6 +43,8 @@ public class PlayerController : MonoBehaviour, IDamageable
             Time.timeScale = 0f;
             uiController.PlayerDied();
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
+            AudioListener.volume = 0f;
         }
     }
 
