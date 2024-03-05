@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class DroneController : MonoBehaviour, IDamageable
 {
+    public Transform bulletSpawnPos;
+    public GameObject bullet;
+    public Vector2 shootEvery = new Vector2(1, 5);
     public Animator animator;
     public Rigidbody rb;
 
@@ -30,6 +33,16 @@ public class DroneController : MonoBehaviour, IDamageable
         bounceSpeed *= 0.0025f; // Bounce speed is really strong even if its a small number, multiply by this literal so it's not so strong
     }
 
+    private void OnEnable()
+    {
+        OpenFire();
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private void Update()
     {
         if (isDead) return;
@@ -45,6 +58,7 @@ public class DroneController : MonoBehaviour, IDamageable
             Destroy(Instantiate(explosion, this.transform.position, Quaternion.identity), 10f); // Create explosion and destroy it in given time
             isDead = true;
             animator.SetTrigger("Die");
+            StopAllCoroutines();
 
             GameManager.EnemyKilled?.Invoke();
         }
@@ -53,6 +67,27 @@ public class DroneController : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         health -= damage;
+    }
+
+    private void OpenFire()
+    {
+        StartCoroutine(RepeatShoot());
+    }
+
+    private IEnumerator RepeatShoot()
+    {
+        Transform playerTrans = GameManager.instance.player.transform;
+
+        while (true)
+        {
+            yield return new WaitForSeconds(UnityEngine.Random.Range(shootEvery.x, shootEvery.y));
+
+            var spawnedBullet = Instantiate(bullet, this.transform.position, Quaternion.identity, null);
+
+            var dir = playerTrans.position - this.transform.position;
+
+            spawnedBullet.transform.up = dir;
+        }  
     }
 
     #region Bounce

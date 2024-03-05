@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 {
     public int health = 50;
     public float bulletFireCooldown = 0.25f;
+    public UiController uiController;
     public GameObject bullet;
     public Texture2D cursorTexture;
 
@@ -22,6 +23,19 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (Input.GetKey(KeyCode.Mouse0))
         {
             FireGun();
+        }
+
+        CheckHealth();
+    }
+
+    private void CheckHealth()
+    {
+        if (health <= 0)
+        {
+            health = 0;
+            Time.timeScale = 0f;
+            uiController.PlayerDied();
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
     }
 
@@ -56,6 +70,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
-        throw new System.NotImplementedException();
+        health -= damage;
     }
 }

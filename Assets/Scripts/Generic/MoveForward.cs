@@ -5,6 +5,12 @@ using UnityEngine;
 public class MoveForward : MonoBehaviour
 {
     public float speed = 5f;
+    public bool startOnSpawn = false;
+
+    private void Start()
+    {
+        if (startOnSpawn) MoveObjectForward();
+    }
 
     public void MoveObjectForward()
     {

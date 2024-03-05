@@ -8,6 +8,8 @@ public class BulletController : MonoBehaviour
     public float bulletSpeed = 25f;
     public int bulletDamage = 15;
 
+    public bool isEnemyBullet = false;
+
     private void Start()
     {
         Destroy(this.gameObject, 15f); // If 15 seconds have passed just destroy the bullet
@@ -21,7 +23,16 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+        if (isEnemyBullet)
+        {
+            other.gameObject.CompareTag("Cart");
+
+            if (GameManager.instance.player.TryGetComponent<IDamageable>(out IDamageable damageable))
+            {
+                damageable.TakeDamage(bulletDamage);
+            }
+        }
+        else if (other.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
             damageable.TakeDamage(bulletDamage);
         }

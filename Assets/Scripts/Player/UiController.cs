@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UiController : MonoBehaviour
 {
+    public GameObject gameOver;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI scoreText;
 
@@ -34,5 +35,12 @@ public class UiController : MonoBehaviour
     {
         healthText.text = "Health: " + playerController.health;
         scoreText.text = "Score: " + score;
+    }
+
+    public void PlayerDied()
+    {
+        healthText.text = "Health: " + 0;
+
+        gameOver.SetActive(true);
     }
 }
