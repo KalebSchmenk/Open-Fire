@@ -52,11 +52,32 @@ public class EnemyTrigger : MonoBehaviour
 
             if (aliveEnemyCount <= 0)
             {
-                cart.m_Speed = 30;
+                StartCoroutine(ChangeSpeed(cart, Time.time));
                 break;
             }
 
             yield return new WaitForSeconds(2f); // Only check every 2 seconds. No need for anything faster
         }     
+    }
+
+    private IEnumerator ChangeSpeed(CinemachineDollyCart cart, float initTime)
+    {
+        float changeDuration = 5f;
+        float newSpeed = 30f;
+
+        while (true)
+        {
+            float t = (Time.time - initTime) / changeDuration;
+
+            cart.m_Speed = Mathf.SmoothStep(cart.m_Speed, newSpeed, t);
+
+            if (Mathf.Abs(cart.m_Speed - newSpeed) < 0.15)
+            {
+                cart.m_Speed = newSpeed;
+                break;
+            }
+
+            yield return null;
+        }
     }
 }
