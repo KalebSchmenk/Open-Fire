@@ -13,6 +13,7 @@ public class MainMenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1f;
         InvokeRepeating("SpawnFlyingShip", 0.25f, 5f);
         AudioListener.volume = 0.5f;
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);

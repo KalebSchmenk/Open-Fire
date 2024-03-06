@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour, IDamageable
     public GameObject bullet;
     public Texture2D cursorTexture;
 
+    public AudioClip hurtSound;
+    public AudioClip gunshot;
+    public AudioSource gunAudioSource;
+
     private bool inCooldown = false;
 
     private void Start()
@@ -54,6 +58,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        gunAudioSource.PlayOneShot(gunshot);
+
         var spawnedBullet = Instantiate(bullet, this.transform.position, Quaternion.identity, null);
         spawnedBullet.transform.up = ray.direction;
         StartCoroutine(MakeBulletAppear(spawnedBullet));
@@ -79,6 +85,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
+        if (damage > 0) gunAudioSource.PlayOneShot(hurtSound); // If not a heal
         health -= damage;
     }
 }

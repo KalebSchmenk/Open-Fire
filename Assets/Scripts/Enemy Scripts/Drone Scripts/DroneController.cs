@@ -15,6 +15,10 @@ public class DroneController : MonoBehaviour, IDamageable
     public float health = 75f;
     [NonSerialized] public bool isDead = false;
 
+    public AudioSource audioSource;
+    public AudioClip deathSound;
+    public AudioClip laserShot;
+
 
     // Movement Vars
     [SerializeField] private float bounceSpeed = 10f;
@@ -55,7 +59,12 @@ public class DroneController : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             this.transform.parent = null;
+
+            audioSource.PlayOneShot(deathSound);
+
             rb.useGravity = true;
+            rb.constraints = RigidbodyConstraints.None;
+
             Destroy(Instantiate(explosion, this.transform.position, Quaternion.identity), 10f); // Create explosion and destroy it in given time
             isDead = true;
             animator.SetTrigger("Die");
@@ -82,6 +91,8 @@ public class DroneController : MonoBehaviour, IDamageable
         while (true)
         {
             yield return new WaitForSeconds(UnityEngine.Random.Range(shootEvery.x, shootEvery.y));
+
+            audioSource.PlayOneShot(laserShot);
 
             var spawnedBullet = Instantiate(bullet, this.transform.position, Quaternion.identity, null);
 
