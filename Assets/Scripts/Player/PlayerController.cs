@@ -15,11 +15,13 @@ public class PlayerController : Controller, IDamageable
 
     private bool inCooldown = false;
 
+    private Camera MainCameraRef;
     private void Start()
     {
         Vector2 hotSpot = new Vector2(cursorTexture.width / 2f, cursorTexture.height / 2f);
         Cursor.SetCursor(cursorTexture, hotSpot, CursorMode.Auto);
         AudioListener.volume = 0.5f;
+        MainCameraRef = Camera.main;
     }
 
     private void Update()
@@ -54,7 +56,7 @@ public class PlayerController : Controller, IDamageable
     {
         if (inCooldown) return;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = MainCameraRef.ScreenPointToRay(Input.mousePosition);
 
         gunAudioSource.PlayOneShot(gunshot);
 

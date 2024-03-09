@@ -40,7 +40,7 @@ public class EnemyTrigger : MonoBehaviour
         List<DroneController> droneList = new List<DroneController>();
 
         enemiesInThisZone.ForEach(e => { droneList.Add(e.GetComponent<DroneController>()); });
-
+        
         while (true)
         {
             aliveEnemyCount = 0;
@@ -52,6 +52,7 @@ public class EnemyTrigger : MonoBehaviour
 
             if (aliveEnemyCount <= 0)
             {
+                StartCoroutine(DeleteEnemiesFromWave(5f));
                 StartCoroutine(ChangeSpeed(cart, Time.time));
                 break;
             }
@@ -80,4 +81,16 @@ public class EnemyTrigger : MonoBehaviour
             yield return null;
         }
     }
+
+    private IEnumerator DeleteEnemiesFromWave(float initTime)
+    {
+        yield return new WaitForSeconds(initTime);
+
+        for (int i = enemiesInThisZone.Count - 1; i >= 0; i--)
+        {
+            Destroy(enemiesInThisZone[i].gameObject);
+            enemiesInThisZone.RemoveAt(i);
+        }
+    }
+    
 }
