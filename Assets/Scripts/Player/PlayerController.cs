@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : Controller, IDamageable
 {
     public int health = 50;
     public float bulletFireCooldown = 0.25f;
     public UiController uiController;
-    public GameObject bullet;
     public Texture2D cursorTexture;
 
     public AudioClip hurtSound;
@@ -60,8 +58,11 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         gunAudioSource.PlayOneShot(gunshot);
 
-        var spawnedBullet = Instantiate(bullet, this.transform.position, Quaternion.identity, null);
+
+        var spawnedBullet = Pool.Get();
+        spawnedBullet.transform.position = this.transform.position;
         spawnedBullet.transform.up = ray.direction;
+        
         StartCoroutine(MakeBulletAppear(spawnedBullet));
 
         StartCoroutine(Cooldown());

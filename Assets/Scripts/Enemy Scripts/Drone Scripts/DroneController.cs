@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroneController : MonoBehaviour, IDamageable
+public class DroneController : Controller, IDamageable
 {
     public Transform bulletSpawnPos;
-    public GameObject bullet;
     public Vector2 shootEvery = new Vector2(1, 5);
     public Animator animator;
     public Rigidbody rb;
@@ -94,7 +93,7 @@ public class DroneController : MonoBehaviour, IDamageable
 
             audioSource.PlayOneShot(laserShot);
 
-            var spawnedBullet = Instantiate(bullet, this.transform.position, Quaternion.identity, null);
+            var spawnedBullet = Pool.Get();
 
             var dir = playerTrans.position - this.transform.position;
 

@@ -9,10 +9,15 @@ public class BulletController : MonoBehaviour
     public int bulletDamage = 15;
 
     public bool isEnemyBullet = false;
-
-    private void Start()
+    public Controller controller;
+    public void Start()
     {
-        Destroy(this.gameObject, 15f); // If 15 seconds have passed just destroy the bullet
+        Invoke(nameof(RemoveFromPoolInTime), 15f) ; // If 15 seconds have passed just destroy the bullet
+    }
+
+    public void RemoveFromPoolInTime()
+    {
+        controller.Pool.Release(this.gameObject);
     }
 
     // Update is called once per frame
@@ -37,6 +42,8 @@ public class BulletController : MonoBehaviour
             damageable.TakeDamage(bulletDamage);
         }
 
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        controller.Pool.Release(this.gameObject);
+        CancelInvoke(nameof(RemoveFromPoolInTime));
     }
 }
